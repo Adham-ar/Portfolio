@@ -13,11 +13,22 @@ from dotenv import load_dotenv
 # Load the environment variables from the hidden .env file
 load_dotenv()
 
-app = Flask(__name__)
+# --- VERCEL READ-ONLY FILESYSTEM COMPATIBILITY ---
+# Vercel needs its instance path routed away from the read-only /var/task context
+if os.environ.get('VERCEL') == '1':
+    app = Flask(__name__, instance_path='/tmp/instance')
+else:
+    app = Flask(__name__)
 
 # --- SECURED CONFIGURATIONS ---
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'fallback-dev-key')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio.db'
+
+if os.environ.get('VERCEL') == '1':
+    # Store database file in the only writable serverless directory
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/portfolio.db'
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio.db'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # --- SMTP MAIL CONFIGURATIONS ---
@@ -34,6 +45,11 @@ app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
 # Initialize extensions
 db = SQLAlchemy(app)
 mail = Mail(app)
+
+# --- AUTOMATIC DATABASE INITIALIZATION ---
+# Serverless containers spin up clean; this guarantees tables exist instantly on boot
+with app.app_context():
+    db.create_all()
 
 # --- LOGIN SETUP ---
 login_manager = LoginManager()
