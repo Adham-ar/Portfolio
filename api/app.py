@@ -13,18 +13,13 @@ from dotenv import load_dotenv
 # Load the environment variables from the hidden .env file
 load_dotenv()
 
-# --- VERCEL READ-ONLY FILESYSTEM COMPATIBILITY ---
-# Vercel needs its instance path routed away from the read-only /var/task context
-if os.environ.get('VERCEL') == '1':
-    app = Flask(__name__, instance_path='/tmp/instance')
-else:
-    app = Flask(__name__)
+# Create Flask instance and explicitly lock the instance path to the writable temp directory
+app = Flask(__name__, instance_path='/tmp')
 
 # --- SECURED CONFIGURATIONS ---
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'fallback-dev-key')
 
 if os.environ.get('VERCEL') == '1':
-    # Store database file in the only writable serverless directory
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/portfolio.db'
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio.db'
@@ -37,24 +32,24 @@ app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 
-# Fetch secrets cleanly from environment variables
 app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
 
-# Initialize extensions
-db = SQLAlchemy(app)
+# Initialize extensions safely to prevent early default folder construction
+db = SQLAlchemy()
+db.init_app(app)
+
 mail = Mail(app)
 
-# --- AUTOMATIC DATABASE INITIALIZATION ---
-# Serverless containers spin up clean; this guarantees tables exist instantly on boot
+# --- AUTOMATIC DATABASE TABLES CREATION ---
 with app.app_context():
     db.create_all()
 
 # --- LOGIN SETUP ---
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'  # Redirects unauthenticated users here
+login_manager.login_view = 'login'
 
 
 # --- MODELS ---
@@ -95,7 +90,6 @@ class ProjectForm(FlaskForm):
     submit = SubmitField('Save Project')
 
 
-# Helper function to split tags for the dynamic UI template
 def add_tags_to_projects(projects):
     for project in projects:
         project.tags = [tech.strip() for tech in project.tech_stack.split(',')]
@@ -110,7 +104,6 @@ def home():
     return render_template('home.html', projects=projects)
 
 
-# Login Route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -128,7 +121,6 @@ def login():
     return render_template('login.html', form=form)
 
 
-# Logout Route
 @app.route('/logout')
 @login_required
 def logout():
@@ -136,7 +128,6 @@ def logout():
     return redirect(url_for('home'))
 
 
-# Secure Contact Email Route
 @app.route('/contact', methods=['POST'])
 def contact():
     name = request.form.get('name')
