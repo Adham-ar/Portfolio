@@ -42,8 +42,10 @@ db.init_app(app)
 
 mail = Mail(app)
 
-# --- AUTOMATIC DATABASE TABLES CREATION ---
-with app.app_context():
+# --- AUTOMATIC DATABASE TABLES CREATION ON FIRST VISIT ---
+@app.before_request
+def create_tables():
+    # This runs right before the first request hits, creating tables if they are missing
     db.create_all()
 
 # --- LOGIN SETUP ---
