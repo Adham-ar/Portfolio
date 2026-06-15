@@ -21,7 +21,14 @@ if os.environ.get('VERCEL') == '1':
     app.instance_path = '/tmp'
     app.template_folder = '../templates'
     app.static_folder = '../static'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/portfolio.db'
+
+    # Securely catch the Neon PostgreSQL connection string
+    prod_db_url = os.environ.get('DATABASE_URL')
+    # Workaround: SQLAlchemy requires 'postgresql://', but some platforms give 'postgres://'
+    if prod_db_url and prod_db_url.startswith("postgres://"):
+        prod_db_url = prod_db_url.replace("postgres://", "postgresql://", 1)
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = prod_db_url
 else:
     app.instance_path = '/tmp'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio.db'
@@ -46,11 +53,13 @@ db.init_app(app)
 
 mail = Mail(app)
 
+
 # --- AUTOMATIC DATABASE TABLES CREATION ON FIRST VISIT ---
 @app.before_request
 def create_tables():
     # This runs right before the first request hits, creating tables if they are missing
     db.create_all()
+
 
 # --- LOGIN SETUP ---
 login_manager = LoginManager()
