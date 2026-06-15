@@ -127,23 +127,20 @@ def login():
 
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-
-        # --- HARDCODED MASTER BYPASS OVERRIDE ---
+        # --- HARDCODED MASTER BYPASS OVERRIDE (Bypasses Neon completely) ---
         if form.username.data == "admin" and form.password.data == "admin002":
+            # 1. Check if the admin already exists in the DB
+            user = User.query.filter_by(username="admin").first()
+
+            # 2. If not, create a transient object in memory without calling db.session.commit()
             if not user:
-                # If database table is empty, generate a session mock user profile on the fly
-                user = User.query.first()
-                if not user:
-                    dummy_hash = generate_password_hash("admin002")
-                    user = User(username="admin", password_hash=dummy_hash)
-                    db.session.add(user)
-                    db.session.commit()
+                user = User(id=1, username="admin", password_hash="bypass")
 
             login_user(user)
             return redirect(url_for('admin_dashboard'))
 
-        # Standard cryptographic fallback check
+        # Standard cryptographic check fallback for regular operations
+        user = User.query.filter_by(username=form.username.data).first()
         if user and check_password_hash(user.password_hash, form.password.data):
             login_user(user)
             return redirect(url_for('admin_dashboard'))
