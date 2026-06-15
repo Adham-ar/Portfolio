@@ -130,19 +130,20 @@ def login():
 
     form = LoginForm()
     if form.validate_on_submit():
-        # --- HARDCODED MASTER BYPASS OVERRIDE (Bypasses Neon completely) ---
-        if form.username.data == "admin" and form.password.data == "admin002":
-            # 1. Check if the admin already exists in the DB
+        # Fetch the secure password hidden in Vercel's environment settings
+        secret_admin_password = os.environ.get('ADMIN_PASSWORD', 'fallback-dev-key-never-use-in-prod')
+
+        # --- SECURE MASTER BYPASS OVERRIDE ---
+        if form.username.data == "admin" and form.password.data == secret_admin_password:
             user = User.query.filter_by(username="admin").first()
 
-            # 2. If not, create a transient object in memory without calling db.session.commit()
             if not user:
                 user = User(id=1, username="admin", password_hash="bypass")
 
             login_user(user)
             return redirect(url_for('admin_dashboard'))
 
-        # Standard cryptographic check fallback for regular operations
+        # Standard cryptographic check fallback
         user = User.query.filter_by(username=form.username.data).first()
         if user and check_password_hash(user.password_hash, form.password.data):
             login_user(user)
