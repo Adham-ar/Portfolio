@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adham Amr | Python Backend Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-white text-[#111111] font-sans antialiased">
+
+    <nav class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md border-b border-[#eeeeee] z-50">
+        <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2.5 group">
+                <img src="{{ url_for('static', filename='images/Adham Profile.jpg') }}"
+                alt="Profile image"
+                class="w-8 h-8 rounded-lg object-cover border border-[#eeeeee] group-hover:border-[#111111] transition-all duration-200">
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-10">
+                <a href="#home" class="text-sm font-medium text-[#111111]">Home</a>
+                <a href="#projects" class="text-sm font-medium text-[#666666] hover:text-[#111111] transition-colors">Projects</a>
+                <a href="#skills" class="text-sm font-medium text-[#666666] hover:text-[#111111] transition-colors">Toolkit</a>
+                <a href="#contact" class="text-sm font-medium text-[#666666] hover:text-[#111111] transition-colors">Contact</a>
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('admin_dashboard') }}" class="text-sm font-medium text-emerald-600 hover:text-emerald-700">Dashboard</a>
+                    <a href="{{ url_for('logout') }}" class="text-sm font-medium text-red-500">Logout</a>
+                {% else %}
+                    <a href="https://drive.google.com/file/d/1I6n9b_cjFrXCbC-TAIxZDORdt_lTtGHd/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="bg-[#111111] text-white text-xs font-medium px-5 py-2.5 rounded-full hover:bg-black transition-all">
+                    Resume &rarr;
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="pt-44 pb-24 text-center">
+        <div class="max-w-3xl mx-auto px-6 flex flex-col items-center">
+            <div class="mb-8">
+                <img src="{{ url_for('static', filename='images/Adham Profile.jpg') }}"
+                     alt="Adham Amr"
+                     class="w-28 h-28 rounded-full object-cover border border-[#eeeeee] bg-[#f9f9f9] transition-transform duration-300 ease-out hover:-translate-y-4">
+            </div>
+
+            <span class="text-sm font-medium text-[#666666] tracking-tight mb-2">Hey Visitor! I'm Adham Amr</span>
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-[#111111] mb-6">Python Backend Developer</h1>
+
+            <p class="text-lg md:text-xl text-[#666666] leading-relaxed max-w-2xl mb-10 font-light">
+                Building robust, scalable, and efficient backend architectures. <br class="hidden md:inline">
+                Expertise in <span class="text-[#111111] font-medium">Python</span>, <span class="text-[#111111] font-medium">RESTful API</span>, <span class="text-[#111111] font-medium">Tkinter</span>, and <span class="text-[#111111] font-medium">Flask</span>.
+            </p>
+
+            <a href="#contact" class="bg-[#111111] text-white text-sm font-medium px-8 py-3.5 rounded-full hover:scale-[1.02] active:scale-[0.98] transition-all">
+                Connect With Me
+            </a>
+        </div>
+    </header>
+
+    <section id="projects" class="py-24 border-t border-[#eeeeee] bg-[#fafafa]">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="mb-16 text-center">
+                <h2 class="text-3xl font-bold tracking-tight text-[#111111] mb-3">Selected Projects</h2>
+                <p class="text-[#666666] font-light max-w-md mx-auto">A showcase of backend systems, APIs, and structural architectures built with modern Python tools.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {% for project in projects %}
+                <div class="bg-white border border-[#eeeeee] rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-[#e0e0e0]">
+                    <div>
+                        <div class="flex items-start justify-between mb-4">
+                            <h3 class="text-xl font-bold tracking-tight text-[#111111]">{{ project.title }}</h3>
+                            {% if project.github_url %}
+                            <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-[#666666] hover:text-black flex items-center gap-1 transition-colors">
+                                Source <span class="text-xs">&nearr;</span>
+                            </a>
+                            {% endif %}
+                        </div>
+
+                        <p class="text-sm text-[#666666] leading-relaxed font-light mb-8 whitespace-pre-line">
+                            {{ project.description }}
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 pt-4 border-t border-[#f5f5f5]">
+                        {% for tag in project.tags %}
+                        <span class="text-[11px] font-medium tracking-tight bg-[#f5f5f5] text-[#444444] px-3 py-1 rounded-md">
+                            {{ tag }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="col-span-full text-center py-12 text-[#666666] font-light">
+                    No projects found. Add your first masterpiece from the admin panel!
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-24 border-t border-[#eeeeee] bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+        <h2 class="text-2xl font-bold tracking-tight text-center mb-12">Core Toolkit</h2>
+
+        <div class="flex items-center gap-6 overflow-x-auto pt-4 pb-6 scroll-smooth snap-x snap-mandatory custom-scrollbar">
+
+        <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 min-w-[150px] w-[150px] snap-start shadow-sm">
+            <img src="{{ url_for('static', filename='images/python.svg') }}" alt="Python" class="h-10 w-auto object-contain mb-4 mix-blend-multiply">
+            <span class="text-sm font-semibold text-[#111111]">Python</span>
+        </div>
+
+        <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 min-w-[150px] w-[150px] snap-start shadow-sm">
+            <img src="{{ url_for('static', filename='images/flask-light.svg') }}" alt="Flask" class="h-10 w-auto object-contain mb-4 mix-blend-multiply">
+            <span class="text-sm font-semibold text-[#111111]">Flask</span>
+        </div>
+
+        <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 min-w-[150px] w-[150px] snap-start shadow-sm">
+            <img src="{{ url_for('static', filename='images/postman.svg') }}" alt="Postman" class="h-10 w-auto object-contain mb-4 mix-blend-multiply">
+            <span class="text-sm font-semibold text-[#111111]">Postman</span>
+        </div>
+
+        <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 min-w-[150px] w-[150px] snap-start shadow-sm">
+            <img src="{{ url_for('static', filename='images/postgresql.svg') }}" alt="PostgreSQL" class="h-10 w-auto object-contain mb-4 mix-blend-multiply">
+            <span class="text-sm font-semibold text-[#111111]">PostgreSQL</span>
+        </div>
+
+        <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 min-w-[150px] w-[150px] snap-start shadow-sm">
+            <img src="{{ url_for('static', filename='images/github_light.svg') }}" alt="Github" class="h-10 w-auto object-contain mb-4 mix-blend-multiply">
+            <span class="text-sm font-semibold text-[#111111]">Github</span>
+        </div>
+
+        <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 min-w-[150px] w-[150px] snap-start shadow-sm">
+            <img src="{{ url_for('static', filename='images/TKinter.png') }}" alt="TKinter" class="h-10 w-auto object-contain mb-4 mix-blend-multiply">
+            <span class="text-sm font-semibold text-[#111111]">TKinter</span>
+        </div>
+
+        </div>
+        </div>
+    </section>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar {
+        height: 6px; /* Sleek, thin track height */
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1; /* Light grey track background */
+        border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #bcbcbc; /* Darker grey handles like your image */
+        border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #111111; /* Turns sleek black on hover */
+    }
+</style>
+
+<section id="contact" class="py-24 border-t border-[#eeeeee] bg-[#fafafa]">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+
+                <div class="flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-semibold uppercase tracking-widest text-[#999999] block mb-3">Get in Touch</span>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-[#111111] mb-6">Let's build something robust together.</h2>
+                    </div>
+
+                    <div class="space-y-4 pt-6 border-t border-[#eeeeee]">
+                        <div>
+                            <p class="text-[10px] font-semibold uppercase tracking-wider text-[#999999]">Email</p>
+                            <a href="mailto:your.email@example.com" class="text-sm font-medium text-[#111111] hover:underline">adhamamr002@gmail.com</a>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-semibold uppercase tracking-wider text-[#999999]">Location</p>
+                            <p class="text-sm font-medium text-[#111111]">Remote / Worldwide</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] font-semibold uppercase tracking-wider text-[#999999] mb-1">Profiles</p>
+                            <div class="flex items-center gap-4 text-sm font-medium">
+                            <a href="https://github.com/Adham-ar" target="_blank" rel="noopener noreferrer" class="text-[#111111] hover:text-[#666666] transition-colors flex items-center gap-1 group">
+                            GitHub
+                            <span class="text-[10px] text-[#999999] group-hover:text-[#111111] transition-colors">&nearr;</span>
+                            </a>
+                            <span class="text-[#eeeeee]">/</span>
+                            <a href="https://www.linkedin.com/in/adham-amr-18a2562a3?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" rel="noopener noreferrer" class="text-[#111111] hover:text-[#666666] transition-colors flex items-center gap-1 group">
+                            LinkedIn
+                            <span class="text-[10px] text-[#999999] group-hover:text-[#111111] transition-colors">&nearr;</span>
+                            </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-[#eeeeee] rounded-2xl p-8 md:p-10 shadow-sm">
+                    {% with messages = get_flashed_messages(category_filter=["contact_success", "contact_error"]) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="mb-6 p-4 text-xs rounded-xl bg-emerald-50 text-emerald-600 font-medium">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form action="/contact" method="POST" class="space-y-6">
+                        <div>
+                            <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#666666] mb-2">Your Name</label>
+                            <input type="text" name="name" required class="w-full px-4 py-3 rounded-xl border border-[#eeeeee] focus:border-[#111111] focus:ring-0 outline-none text-sm bg-[#fafafa] transition-all" placeholder="John Doe">
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#666666] mb-2">Email Address</label>
+                            <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl border border-[#eeeeee] focus:border-[#111111] focus:ring-0 outline-none text-sm bg-[#fafafa] transition-all" placeholder="john@example.com">
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#666666] mb-2">Message</label>
+                            <textarea name="message" required rows="4" class="w-full px-4 py-3 rounded-xl border border-[#eeeeee] focus:border-[#111111] focus:ring-0 outline-none text-sm bg-[#fafafa] transition-all resize-none" placeholder="Tell me about your project..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-[#111111] text-white font-medium py-3.5 rounded-xl hover:bg-black transition-all text-xs uppercase tracking-wider">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

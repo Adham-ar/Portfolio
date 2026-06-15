@@ -1,0 +1,128 @@
+/*
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;800&family=Inter:wght@300;500;700&display=swap');
+
+*/
+/* Global Variables *//*
+
+:root {
+    --bg-main: #0b0f19;         */
+/* Rich charcoal-blue deep background *//*
+
+    --bg-card: #151b2c;         */
+/* Slightly lighter surface tone for cards *//*
+
+    --accent-glow: #6366f1;     */
+/* Primary neon indigo *//*
+
+    --accent-teal: #06b6d4;     */
+/* Secondary code teal *//*
+
+    --text-primary: #f3f4f6;    */
+/* Off-white text *//*
+
+    --text-muted: #9ca3af;      */
+/* Secondary reading text *//*
+
+    --border-color: #242f4d;    */
+/* Subtle separation lines *//*
+
+}
+
+html, body {
+    background-color: var(--bg-main) !important;
+    color: var(--text-primary) !important;
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+}
+
+code, pre, .mono-font {
+    font-family: 'JetBrains Mono', monospace !important;
+}
+
+*/
+/* Navbar Customizations *//*
+
+.custom-nav {
+    background-color: rgba(11, 15, 25, 0.8) !important;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+*/
+/* Typography Gradient *//*
+
+.text-gradient {
+    background: linear-gradient(135deg, #a78bfa, var(--accent-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+*/
+/* Premium Project Cards *//*
+
+.portfolio-card {
+    background-color: var(--bg-card) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent-teal) !important;
+    box-shadow: 0 12px 30px rgba(6, 182, 212, 0.15);
+}
+
+*/
+/* Custom Badges *//*
+
+.tech-badge {
+    background-color: rgba(99, 102, 241, 0.12) !important;
+    color: #a5b4fc !important;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    font-size: 0.75rem;
+    padding: 0.4em 0.8em;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+*/
+/* Terminal Adjustments *//*
+
+.terminal-mockup {
+    background-color: #030712 !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+*/
+/* Action Buttons *//*
+
+.btn-premium {
+    background: linear-gradient(135deg, var(--accent-glow), #4f46e5);
+    color: #fff !important;
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 1.7rem;
+    font-weight: 600;
+    transition: opacity 0.2s ease;
+}
+
+.btn-premium:hover {
+    opacity: 0.9;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+.btn-outline-custom {
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-custom:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-muted) !important;
+}*/
