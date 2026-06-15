@@ -13,8 +13,15 @@ from dotenv import load_dotenv
 # Load the environment variables from the hidden .env file
 load_dotenv()
 
-# Create Flask instance and explicitly lock the instance path to the writable temp directory
-app = Flask(__name__, instance_path='/tmp')
+# --- VERCEL COMPATIBLE FOLDER PATHS & INSTANCE BLOCK ---
+if os.environ.get('VERCEL') == '1':
+    # Tell Flask to look up one level into the root directory for front-end templates & static files
+    app = Flask(__name__,
+                instance_path='/tmp',
+                template_folder='../templates',
+                static_folder='../static')
+else:
+    app = Flask(__name__, instance_path='/tmp')
 
 # --- SECURED CONFIGURATIONS ---
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'fallback-dev-key')
