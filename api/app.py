@@ -13,24 +13,21 @@ from dotenv import load_dotenv
 # Load the environment variables from the hidden .env file
 load_dotenv()
 
-# --- VERCEL COMPATIBLE FOLDER PATHS & INSTANCE BLOCK ---
+# 1. ALWAYS initialize the app variable globally at the top level so Vercel can see it instantly
+app = Flask(__name__)
+
+# 2. Dynamically update folder structures and path configurations based on the environment
 if os.environ.get('VERCEL') == '1':
-    # Tell Flask to look up one level into the root directory for front-end templates & static files
-    app = Flask(__name__,
-                instance_path='/tmp',
-                template_folder='../templates',
-                static_folder='../static')
+    app.instance_path = '/tmp'
+    app.template_folder = '../templates'
+    app.static_folder = '../static'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/portfolio.db'
 else:
-    app = Flask(__name__, instance_path='/tmp')
+    app.instance_path = '/tmp'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio.db'
 
 # --- SECURED CONFIGURATIONS ---
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'fallback-dev-key')
-
-if os.environ.get('VERCEL') == '1':
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/portfolio.db'
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio.db'
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # --- SMTP MAIL CONFIGURATIONS ---
@@ -43,7 +40,7 @@ app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
 
-# Initialize extensions safely to prevent early default folder construction
+# Initialize extensions safely
 db = SQLAlchemy()
 db.init_app(app)
 
