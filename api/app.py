@@ -83,6 +83,7 @@ class Project(db.Model):
     tech_stack = db.Column(db.String(200), nullable=False)
     github_url = db.Column(db.String(200), nullable=True)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
+    demo_url = db.Column(db.String(200), nullable=True)
 
 
 @login_manager.user_loader
@@ -106,6 +107,7 @@ class ProjectForm(FlaskForm):
     description = TextAreaField('Description', validators=[DataRequired()])
     tech_stack = StringField('Tech Stack (comma-separated)', validators=[DataRequired()])
     github_url = StringField('GitHub URL', validators=[Optional(), URL()])
+    demo_url = StringField('Live Demo URL', validators=[Optional(), URL()])
     submit = SubmitField('Save Project')
 
 

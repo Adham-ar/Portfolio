@@ -86,31 +86,54 @@
         </div>
     </header>
 
-    <section id="projects" class="py-24 border-t border-[#eeeeee] bg-[#fafafa]">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="mb-16 text-center">
-                <h2 class="text-3xl font-bold tracking-tight text-[#111111] mb-3">Selected Projects</h2>
-                <p class="text-[#666666] font-light max-w-md mx-auto">A showcase of backend systems, APIs, and structural architectures built with modern Python tools.</p>
-            </div>
+   <section id="projects" class="py-24 border-t border-[#eeeeee] bg-[#fafafa]">
+    <div class="max-w-5xl mx-auto px-6">
+        <div class="mb-16 text-center">
+            <h2 class="text-3xl font-bold tracking-tight text-[#111111] mb-3">Selected Projects</h2>
+            <p class="text-[#666666] font-light max-w-md mx-auto">A showcase of backend systems, APIs, and structural architectures built with modern Python tools.</p>
+        </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {% for project in projects %}
-                <div class="bg-white border border-[#eeeeee] rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-[#e0e0e0]">
-                    <div>
-                        <div class="flex items-start justify-between mb-4">
-                            <h3 class="text-xl font-bold tracking-tight text-[#111111]">{{ project.title }}</h3>
-                            {% if project.github_url %}
-                            <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-[#666666] hover:text-black flex items-center gap-1 transition-colors">
-                                Source <span class="text-xs">&nearr;</span>
-                            </a>
-                            {% endif %}
-                        </div>
-
-                        <p class="text-sm text-[#666666] leading-relaxed font-light mb-8 whitespace-pre-line">
-                            {{ project.description }}
-                        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {% for project in projects %}
+            <div class="bg-white border border-[#eeeeee] rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-[#e0e0e0]">
+                <div>
+                    <!-- Title Section -->
+                    <div class="mb-4">
+                        <h3 class="text-xl font-bold tracking-tight text-[#111111]">{{ project.title }}</h3>
                     </div>
 
+                    <!-- Description -->
+                    <p class="text-sm text-[#666666] leading-relaxed font-light mb-8 whitespace-pre-line">
+                        {{ project.description }}
+                    </p>
+                </div>
+
+                <!-- Footer Section: Links & Tech Tags -->
+                <div class="space-y-6">
+                    <!-- Action Links -->
+                    {% if project.github_url or project.demo_url %}
+                    <div class="flex items-center gap-4">
+                        {% if project.demo_url %}
+                        <a href="{{ project.demo_url }}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="bg-[#111111] text-white text-xs font-medium px-5 py-2.5 rounded-full hover:bg-black transition-all">
+                            Live Demo &rarr;
+                        </a>
+                        {% endif %}
+
+                        {% if project.github_url %}
+                        <a href="{{ project.github_url }}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="text-sm font-medium text-[#666666] hover:text-black flex items-center gap-1 transition-colors">
+                            Source <span class="text-xs">&nearr;</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Tech Stack Tags -->
                     <div class="flex flex-wrap gap-2 pt-4 border-t border-[#f5f5f5]">
                         {% for tag in project.tags %}
                         <span class="text-[11px] font-medium tracking-tight bg-[#f5f5f5] text-[#444444] px-3 py-1 rounded-md">
@@ -119,13 +142,14 @@
                         {% endfor %}
                     </div>
                 </div>
-                {% else %}
-                <div class="col-span-full text-center py-12 text-[#666666] font-light">
-                    No projects found. Add your first masterpiece from the admin panel!
-                </div>
-                {% endfor %}
             </div>
+            {% else %}
+            <div class="col-span-full text-center py-12 text-[#666666] font-light">
+                No projects found. Add your first masterpiece from the admin panel!
+            </div>
+            {% endfor %}
         </div>
+    </div>
     </section>
 
     <section id="skills" class="py-24 border-t border-[#eeeeee] bg-white">
