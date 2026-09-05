@@ -202,16 +202,17 @@ def admin_dashboard():
 def new_project():
     form = ProjectForm()
     if form.validate_on_submit():
-        new_item = Project(
+        project = Project(
             title=form.title.data,
             description=form.description.data,
             tech_stack=form.tech_stack.data,
-            github_url=form.github_url.data
+            github_url=form.github_url.data,
+            demo_url=form.demo_url.data
         )
-        db.session.add(new_item)
+        db.session.add(project)
         db.session.commit()
         return redirect(url_for('admin_dashboard'))
-    return render_template('project_form.html', form=form, title="Add New Project")
+    return render_template('project_form.html', form=form, title="New Project")
 
 
 @app.route('/admin/project/edit/<int:project_id>', methods=['GET', 'POST'])
@@ -225,6 +226,7 @@ def edit_project(project_id):
         project.description = form.description.data
         project.tech_stack = form.tech_stack.data
         project.github_url = form.github_url.data
+        project.demo_url = form.demo_url.data
         db.session.commit()
         return redirect(url_for('admin_dashboard'))
 
