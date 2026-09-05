@@ -93,9 +93,10 @@
             <p class="text-[#666666] font-light max-w-md mx-auto">A showcase of backend systems, APIs, and structural architectures built with modern Python tools.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Horizontal Scrollable Row Layout -->
+        <div class="flex items-stretch gap-8 overflow-x-auto pt-2 pb-6 custom-scrollbar snap-x snap-mandatory">
             {% for project in projects %}
-            <div class="bg-white border border-[#eeeeee] rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-[#e0e0e0]">
+            <div class="bg-white border border-[#eeeeee] rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-[#e0e0e0] min-w-[320px] md:min-w-[420px] max-w-[420px] snap-start shrink-0">
                 <div>
                     <!-- Title Section -->
                     <div class="mb-4">
@@ -144,7 +145,7 @@
                 </div>
             </div>
             {% else %}
-            <div class="col-span-full text-center py-12 text-[#666666] font-light">
+            <div class="w-full text-center py-12 text-[#666666] font-light">
                 No projects found. Add your first masterpiece from the admin panel!
             </div>
             {% endfor %}
