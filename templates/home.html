@@ -87,24 +87,25 @@
     </header>
 
    <section id="projects" class="py-24 border-t border-[#eeeeee] bg-[#fafafa]">
-    <div class="max-w-5xl mx-auto px-6">
+    <div class="max-w-6xl mx-auto px-6">
         <div class="mb-16 text-center">
             <h2 class="text-3xl font-bold tracking-tight text-[#111111] mb-3">Selected Projects</h2>
             <p class="text-[#666666] font-light max-w-md mx-auto">A showcase of backend systems, APIs, and structural architectures built with modern Python tools.</p>
         </div>
 
-        <!-- Horizontal Scrollable Row Layout -->
-        <div class="flex items-stretch gap-8 overflow-x-auto pt-2 pb-6 custom-scrollbar snap-x snap-mandatory">
+        <!-- Expanded Horizontal Scroll Container -->
+        <div class="flex items-stretch gap-8 overflow-x-auto pt-2 pb-8 custom-scrollbar snap-x snap-mandatory">
             {% for project in projects %}
-            <div class="bg-white border border-[#eeeeee] rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-[#e0e0e0] min-w-[320px] md:min-w-[420px] max-w-[420px] snap-start shrink-0">
+            <!-- Card size expanded to 85vw on mobile and 600px+ on desktop -->
+            <div class="bg-white border border-[#eeeeee] rounded-2xl p-8 md:p-10 flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-[#e0e0e0] min-w-[85vw] md:min-w-[600px] max-w-[650px] snap-start shrink-0">
                 <div>
                     <!-- Title Section -->
                     <div class="mb-4">
-                        <h3 class="text-xl font-bold tracking-tight text-[#111111]">{{ project.title }}</h3>
+                        <h3 class="text-2xl font-bold tracking-tight text-[#111111]">{{ project.title }}</h3>
                     </div>
 
                     <!-- Description -->
-                    <p class="text-sm text-[#666666] leading-relaxed font-light mb-8 whitespace-pre-line">
+                    <p class="text-sm md:text-base text-[#666666] leading-relaxed font-light mb-8 whitespace-pre-line">
                         {{ project.description }}
                     </p>
                 </div>
@@ -118,8 +119,8 @@
                         <a href="{{ project.demo_url }}"
                            target="_blank"
                            rel="noopener noreferrer"
-                           class="bg-[#111111] text-white text-xs font-medium px-5 py-2.5 rounded-full hover:bg-black transition-all">
-                            Live Demo &rarr;
+                           class="bg-[#111111] text-white text-xs font-medium px-5 py-2.5 rounded-full hover:bg-black transition-all flex items-center gap-1.5">
+                            Live Demo <span class="text-xs">&nearr;</span>
                         </a>
                         {% endif %}
 
@@ -137,7 +138,7 @@
                     <!-- Tech Stack Tags -->
                     <div class="flex flex-wrap gap-2 pt-4 border-t border-[#f5f5f5]">
                         {% for tag in project.tags %}
-                        <span class="text-[11px] font-medium tracking-tight bg-[#f5f5f5] text-[#444444] px-3 py-1 rounded-md">
+                        <span class="text-[11px] font-medium tracking-tight bg-[#f5f5f5] text-[#444444] px-3.5 py-1.5 rounded-md">
                             {{ tag }}
                         </span>
                         {% endfor %}
