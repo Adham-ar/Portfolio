@@ -27,9 +27,13 @@
     <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
 
         <a href="#" class="flex items-center gap-2.5 group">
-            <img src="{{ url_for('static', filename='images/adham-profile.jpg') }}"
-            alt="Profile image"
-            class="w-8 h-8 rounded-lg object-cover border border-[#eeeeee] group-hover:border-[#111111] transition-all duration-200">
+            <img
+              src="{{ url_for('static', filename='images/adham-profile.png') }}"
+              alt="Profile image"
+              width="32"
+              height="32"
+              class="w-8 h-8 rounded-lg object-cover border border-[#eeeeee] group-hover:border-[#111111] transition-all duration-200 shrink-0 transform-gpu"
+            >
         </a>
 
         {% if not current_user.is_authenticated %}
@@ -67,9 +71,11 @@
     <header id="home" class="pt-44 pb-24 text-center">
         <div class="max-w-3xl mx-auto px-6 flex flex-col items-center">
             <div class="mb-8">
-                <img src="{{ url_for('static', filename='images/adham-profile.jpg') }}"
-                     alt="Adham Amr"
-                     class="w-44 h-44 md:w-48 md:h-48 sharpen-image rounded-full object-cover border border-[#eeeeee] bg-[#f9f9f9] shadow-sm transition-transform duration-300 ease-out hover:-translate-y-4">
+                <img src="{{ url_for('static', filename='images/adham-profile.png') }}"
+                 alt="Adham Amr"
+                 width="192"
+                 height="192"
+                 class="w-44 h-44 md:w-48 md:h-48 rounded-full object-cover border border-[#eeeeee] bg-[#f9f9f9] shadow-sm transition-transform duration-300 ease-out hover:-translate-y-4 transform-gpu">
             </div>
 
             <span class="text-sm font-medium text-[#666666] tracking-tight mb-2">Hey Visitor! I'm Adham Amr</span>
