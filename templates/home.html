@@ -101,63 +101,64 @@
         </div>
 
         <!-- Horizontal Scroll Track -->
-        <div class="flex items-stretch gap-8 overflow-x-auto pt-2 pb-6 custom-scrollbar snap-x snap-mandatory">
-            {% for project in projects %}
-            <!-- Restored original card dimensions (max-w-[420px]) -->
-            <div class="bg-white border border-[#eeeeee] rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-[#e0e0e0] min-w-[320px] md:min-w-[420px] max-w-[420px] snap-start shrink-0">
-                <div>
-                    <!-- Title Section -->
-                    <div class="mb-4">
-                        <h3 class="text-xl font-bold tracking-tight text-[#111111]">{{ project.title }}</h3>
-                    </div>
-
-                    <!-- Description -->
-                    <p class="text-sm text-[#666666] leading-relaxed font-light mb-8 whitespace-pre-line">
-                        {{ project.description }}
-                    </p>
+        <!-- Changed: Added negative margin (-mx-4) and horizontal padding (px-4) for full-bleed mobile scrolling -->
+    <div class="flex items-stretch gap-4 md:gap-8 overflow-x-auto -mx-4 px-4 pt-2 pb-6 custom-scrollbar snap-x snap-mandatory">
+        {% for project in projects %}
+        <!-- Changed: Responsive width (w-[85vw] on mobile, max-w-[420px] on desktop) & responsive padding (p-5 on mobile, p-8 on desktop) -->
+        <div class="bg-white border border-[#eeeeee] rounded-2xl p-5 md:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-md hover:border-[#e0e0e0] w-[85vw] sm:w-[360px] md:min-w-[420px] md:max-w-[420px] snap-start shrink-0">
+            <div>
+                <!-- Title Section -->
+                <div class="mb-4">
+                    <h3 class="text-lg md:text-xl font-bold tracking-tight text-[#111111]">{{ project.title }}</h3>
                 </div>
 
-                <!-- Footer Section: Links & Tech Tags -->
-                <div class="space-y-6">
-                    <!-- Action Links -->
-                    {% if project.github_url or project.demo_url %}
-                    <div class="flex items-center gap-4">
-                        {% if project.demo_url %}
-                        <a href="{{ project.demo_url }}"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="bg-[#111111] text-white text-xs font-medium px-5 py-2.5 rounded-full hover:bg-black transition-all flex items-center gap-1">
-                            Live Demo <span class="text-xs">&nearr;</span>
-                        </a>
-                        {% endif %}
+                <!-- Description -->
+                <p class="text-xs md:text-sm text-[#666666] leading-relaxed font-light mb-6 md:mb-8 whitespace-pre-line">
+                    {{ project.description }}
+                </p>
+            </div>
 
-                        {% if project.github_url %}
-                        <a href="{{ project.github_url }}"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="text-sm font-medium text-[#666666] hover:text-black flex items-center gap-1 transition-colors">
-                            Source <span class="text-xs">&nearr;</span>
-                        </a>
-                        {% endif %}
-                    </div>
+            <!-- Footer Section: Links & Tech Tags -->
+            <div class="space-y-4 md:space-y-6">
+                <!-- Action Links -->
+                {% if project.github_url or project.demo_url %}
+                <div class="flex items-center gap-4">
+                    {% if project.demo_url %}
+                    <a href="{{ project.demo_url }}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="bg-[#111111] text-white text-xs font-medium px-4 md:px-5 py-2.5 rounded-full hover:bg-black transition-all flex items-center gap-1">
+                        Live Demo <span class="text-xs">&nearr;</span>
+                    </a>
                     {% endif %}
 
-                    <!-- Tech Stack Tags -->
-                    <div class="flex flex-wrap gap-2 pt-4 border-t border-[#f5f5f5]">
-                        {% for tag in project.tags %}
-                        <span class="text-[11px] font-medium tracking-tight bg-[#f5f5f5] text-[#444444] px-3 py-1 rounded-md">
-                            {{ tag }}
-                        </span>
-                        {% endfor %}
-                    </div>
+                    {% if project.github_url %}
+                    <a href="{{ project.github_url }}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="text-xs md:text-sm font-medium text-[#666666] hover:text-black flex items-center gap-1 transition-colors">
+                        Source <span class="text-xs">&nearr;</span>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Tech Stack Tags -->
+                <div class="flex flex-wrap gap-1.5 md:gap-2 pt-4 border-t border-[#f5f5f5]">
+                    {% for tag in project.tags %}
+                    <span class="text-[10px] md:text-[11px] font-medium tracking-tight bg-[#f5f5f5] text-[#444444] px-2.5 md:px-3 py-1 rounded-md">
+                        {{ tag }}
+                    </span>
+                    {% endfor %}
                 </div>
             </div>
-            {% else %}
-            <div class="w-full text-center py-12 text-[#666666] font-light">
-                No projects found. Add your first masterpiece from the admin panel!
-            </div>
-            {% endfor %}
         </div>
+        {% else %}
+        <div class="w-full text-center py-12 text-[#666666] font-light">
+            No projects found. Add your first masterpiece from the admin panel!
+        </div>
+        {% endfor %}
+    </div>
     </div>
     </section>
 
