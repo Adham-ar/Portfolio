@@ -166,126 +166,64 @@
     <div class="max-w-5xl mx-auto px-6">
         <h2 class="text-2xl font-bold tracking-tight text-center mb-8 md:mb-12">Core Toolkit</h2>
 
-        <!-- Bounded Infinite Scroll Wrapper (Matches your site's max-w-5xl layout) -->
-        <div class="relative w-full overflow-hidden marquee-mask py-2">
-            <!-- Scroll Track (Duplicated list for seamless infinite loop) -->
-            <div class="flex items-center gap-4 md:gap-6 w-max animate-marquee hover:[animation-play-state:paused]">
+        <!-- Manual Horizontal Scroll Track with Padding for Edge Visibility -->
+        <div class="flex items-center gap-4 md:gap-6 overflow-x-auto pt-2 pb-6 px-1 scroll-smooth snap-x snap-mandatory custom-scrollbar">
 
-                <!-- First Set of Cards -->
-                <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 w-[130px] md:w-[150px] shrink-0 shadow-sm">
-                    <img src="{{ url_for('static', filename='images/python.svg') }}" alt="Python" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
-                    <span class="text-xs md:text-sm font-semibold text-[#111111]">Python</span>
-                </div>
-
-                <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 w-[130px] md:w-[150px] shrink-0 shadow-sm">
-                    <img src="{{ url_for('static', filename='images/flask-light.svg') }}" alt="Flask" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
-                    <span class="text-xs md:text-sm font-semibold text-[#111111]">Flask</span>
-                </div>
-
-                <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 w-[130px] md:w-[150px] shrink-0 shadow-sm">
-                    <img src="{{ url_for('static', filename='images/postman.svg') }}" alt="Postman" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
-                    <span class="text-xs md:text-sm font-semibold text-[#111111]">Postman</span>
-                </div>
-
-                <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 w-[130px] md:w-[150px] shrink-0 shadow-sm">
-                    <img src="{{ url_for('static', filename='images/postgresql.svg') }}" alt="PostgreSQL" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
-                    <span class="text-xs md:text-sm font-semibold text-[#111111]">PostgreSQL</span>
-                </div>
-
-                <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 w-[130px] md:w-[150px] shrink-0 shadow-sm">
-                    <img src="{{ url_for('static', filename='images/github_light.svg') }}" alt="Github" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
-                    <span class="text-xs md:text-sm font-semibold text-[#111111]">Github</span>
-                </div>
-
-                <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 w-[130px] md:w-[150px] shrink-0 shadow-sm">
-                    <img src="{{ url_for('static', filename='images/TKinter.png') }}" alt="TKinter" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
-                    <span class="text-xs md:text-sm font-semibold text-[#111111]">TKinter</span>
-                </div>
-
-                <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 w-[130px] md:w-[150px] shrink-0 shadow-sm">
-                    <img src="{{ url_for('static', filename='images/icons8-microsoft-sql-server.svg') }}" alt="Microsoft SQL Server" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
-                    <span class="text-xs md:text-sm font-semibold text-[#111111]">T-SQL</span>
-                </div>
-
-                <!-- Duplicate Set (Required for infinite loop transition) -->
-                <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 w-[130px] md:w-[150px] shrink-0 shadow-sm" aria-hidden="true">
-                    <img src="{{ url_for('static', filename='images/python.svg') }}" alt="Python" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
-                    <span class="text-xs md:text-sm font-semibold text-[#111111]">Python</span>
-                </div>
-
-                <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 w-[130px] md:w-[150px] shrink-0 shadow-sm" aria-hidden="true">
-                    <img src="{{ url_for('static', filename='images/flask-light.svg') }}" alt="Flask" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
-                    <span class="text-xs md:text-sm font-semibold text-[#111111]">Flask</span>
-                </div>
-
-                <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 w-[130px] md:w-[150px] shrink-0 shadow-sm" aria-hidden="true">
-                    <img src="{{ url_for('static', filename='images/postman.svg') }}" alt="Postman" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
-                    <span class="text-xs md:text-sm font-semibold text-[#111111]">Postman</span>
-                </div>
-
-                <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 w-[130px] md:w-[150px] shrink-0 shadow-sm" aria-hidden="true">
-                    <img src="{{ url_for('static', filename='images/postgresql.svg') }}" alt="PostgreSQL" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
-                    <span class="text-xs md:text-sm font-semibold text-[#111111]">PostgreSQL</span>
-                </div>
-
-                <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 w-[130px] md:w-[150px] shrink-0 shadow-sm" aria-hidden="true">
-                    <img src="{{ url_for('static', filename='images/github_light.svg') }}" alt="Github" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
-                    <span class="text-xs md:text-sm font-semibold text-[#111111]">Github</span>
-                </div>
-
-                <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 w-[130px] md:w-[150px] shrink-0 shadow-sm" aria-hidden="true">
-                    <img src="{{ url_for('static', filename='images/TKinter.png') }}" alt="TKinter" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
-                    <span class="text-xs md:text-sm font-semibold text-[#111111]">TKinter</span>
-                </div>
-
-                <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 w-[130px] md:w-[150px] shrink-0 shadow-sm" aria-hidden="true">
-                    <img src="{{ url_for('static', filename='images/icons8-microsoft-sql-server.svg') }}" alt="Microsoft SQL Server" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
-                    <span class="text-xs md:text-sm font-semibold text-[#111111]">T-SQL</span>
-                </div>
-
+            <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 min-w-[130px] w-[130px] md:min-w-[150px] md:w-[150px] snap-start shrink-0 shadow-sm">
+                <img src="{{ url_for('static', filename='images/python.svg') }}" alt="Python" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
+                <span class="text-xs md:text-sm font-semibold text-[#111111]">Python</span>
             </div>
+
+            <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 min-w-[130px] w-[130px] md:min-w-[150px] md:w-[150px] snap-start shrink-0 shadow-sm">
+                <img src="{{ url_for('static', filename='images/flask-light.svg') }}" alt="Flask" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
+                <span class="text-xs md:text-sm font-semibold text-[#111111]">Flask</span>
+            </div>
+
+            <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 min-w-[130px] w-[130px] md:min-w-[150px] md:w-[150px] snap-start shrink-0 shadow-sm">
+                <img src="{{ url_for('static', filename='images/postman.svg') }}" alt="Postman" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
+                <span class="text-xs md:text-sm font-semibold text-[#111111]">Postman</span>
+            </div>
+
+            <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 min-w-[130px] w-[130px] md:min-w-[150px] md:w-[150px] snap-start shrink-0 shadow-sm">
+                <img src="{{ url_for('static', filename='images/postgresql.svg') }}" alt="PostgreSQL" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
+                <span class="text-xs md:text-sm font-semibold text-[#111111]">PostgreSQL</span>
+            </div>
+
+            <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 min-w-[130px] w-[130px] md:min-w-[150px] md:w-[150px] snap-start shrink-0 shadow-sm">
+                <img src="{{ url_for('static', filename='images/github_light.svg') }}" alt="Github" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
+                <span class="text-xs md:text-sm font-semibold text-[#111111]">Github</span>
+            </div>
+
+            <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 min-w-[130px] w-[130px] md:min-w-[150px] md:w-[150px] snap-start shrink-0 shadow-sm">
+                <img src="{{ url_for('static', filename='images/TKinter.png') }}" alt="TKinter" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
+                <span class="text-xs md:text-sm font-semibold text-[#111111]">TKinter</span>
+            </div>
+
+            <div class="bg-[#f9f9f9] border border-[#eeeeee] rounded-xl p-5 md:p-8 flex flex-col items-center text-center transition-all duration-200 hover:border-[#bcbcbc] hover:-translate-y-1 min-w-[130px] w-[130px] md:min-w-[150px] md:w-[150px] snap-start shrink-0 shadow-sm">
+                <img src="{{ url_for('static', filename='images/icons8-microsoft-sql-server.svg') }}" alt="Microsoft SQL Server" class="h-8 md:h-10 w-auto object-contain mb-3 md:mb-4 mix-blend-multiply">
+                <span class="text-xs md:text-sm font-semibold text-[#111111]">T-SQL</span>
+            </div>
+
         </div>
     </div>
     </section>
 
-<style>
-    .custom-scrollbar::-webkit-scrollbar {
-        height: 6px; /* Sleek, thin track height */
-    }
-    .custom-scrollbar::-webkit-scrollbar-track {
-        background: #f1f1f1; /* Light grey track background */
-        border-radius: 10px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #bcbcbc; /* Darker grey handles like your image */
-        border-radius: 10px;
-    }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-        background: #111111; /* Turns sleek black on hover */
-    }
-    .sharpen-image {
-        /* Tells Chrome, Edge, and Safari to use a high-fidelity, crisp scaling mode */
-        image-rendering: -webkit-optimize-contrast;
-        /* Tells Firefox to lock contrast edges cleanly */
-        image-rendering: crisp-edges;
-    }
-    @keyframes marquee {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
-    }
-
-    .animate-marquee {
-    animation: marquee 25s linear infinite;
-    }
-
-    /* Gradient Mask to fade out edge cards softly */
-    .marquee-mask {
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    }
-
-
-</style>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #bcbcbc;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #111111;
+        }
+    </style>
 
 <section id="contact" class="py-24 border-t border-[#eeeeee] bg-[#fafafa]">
         <div class="max-w-5xl mx-auto px-6">
